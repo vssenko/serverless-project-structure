@@ -1,0 +1,33 @@
+service: microservice-mysql-events
+
+frameworkVersion: '2'
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: ${env:AWS_DEFAULT_REGION, 'us-east-1'}
+  stage: ${env:STAGE, 'dev'}
+  lambdaHashingVersion: 20201221
+  environment:
+    NODE_ENV: ${env:NODE_ENV}
+    db_url: ${env:db_url}
+    db_user: ${env:db_user}
+    db_password: ${env:db_password}
+    database: ${env:database}
+
+custom:
+  defaultSqsName: sqs-ms-mysql-events-${opt:stage, self:provider.stage}.fifo
+  defaultSqsArn: arn:aws:sqs:${self:provider.region}:*:${self:custom.defaultSqsName}
+  targetSqsArn: ${env:TARGET_SQS_ARN_NAME}
+
+
+functions:
+  healthcheck:
+    handler: src/functions/healthcheck.handler
+
+  postEvent:
+    handler: src/functions/postEvent.handler
+    events:
+      - sqs: 
+          arn: ${self:custom.targetSqsArn, self:custom.defaultSqsArn}

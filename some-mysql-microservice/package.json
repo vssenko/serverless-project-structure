@@ -1,0 +1,18 @@
+{
+  "name": "serverless-project-structure",
+  "version": "1.0.0",
+  "description": "Example project for multiple serverless functions organization",
+  "scripts": {
+    "deploy:infrastructure": "cd ./infrastructure && sls deploy",
+    "deploy:serverless": "sls deploy",
+    "db:sync": "node ./bin/sync-db.js",
+    "invoke": "serverless invoke local -f",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "lodash": "^4.17.21",
+    "mysql2": "^2.2.5",
+    "sequelize": "^6.6.2"
+  }
+}

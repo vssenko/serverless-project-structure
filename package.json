@@ -1,0 +1,19 @@
+{
+  "name": "serverless-project-structure",
+  "version": "1.0.0",
+  "description": "How to work like a noble human with Serverless technology.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vssenko/serverless-project-structure.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vssenko/serverless-project-structure/issues"
+  },
+  "homepage": "https://github.com/vssenko/serverless-project-structure#readme"
+}

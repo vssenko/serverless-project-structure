@@ -1,0 +1,23 @@
+service: crtn-mysql-events-sqs
+useDotenv: true
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: ${env:AWS_DEFAULT_REGION, 'us-east-1'}
+  stage: ${env:STAGE, 'dev'}
+  environment:
+    SQS_QUEUE_URL: { Ref: NewSQSQueue }
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - sqs:*
+      Resource:
+        Fn::GetAtt: [ NewSQSQueue, Arn ]
+
+resources:
+  Resources:
+    NewSQSQueue:
+      Type: "AWS::SQS::Queue"
+      Properties:
+        QueueName: sqs-ms-mysql-events-${opt:stage, self:provider.stage}.fifo
+        FifoQueue: true
